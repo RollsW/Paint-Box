@@ -78,7 +78,7 @@ class PaintBox():
         for i in self.mapslist:
             j = j+1
             fig = plt.figure(j, figsize=(side_length*1.7778,side_length))
-            ax = fig.add_subplot(111)
+            ax = fig.add_subplot(1,1,1)
             fig.patch.set_facecolor(background)
             ax.patch.set_facecolor(background)
             ax.spines.clear()
@@ -107,4 +107,4 @@ if __name__ == "__main__":
     x = PaintBox("_another_test",test)
     print(x.colours_list)
     x.save_location(r".\\test")
-    x.swatches(save=True)
+    x.swatches()#save=True)
