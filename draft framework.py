@@ -187,10 +187,10 @@ class PaintBox():
 
 if __name__ == "__main__":
 
-    y = ["#2b3a42","#3f5866","#bdd3de","#f0f0df","#ff8f00"]
+#    y = ["#2b3a42","#3f5866","#bdd3de","#f0f0df","#ff8f00"]
 
 
-#    y = get_hex('magma',6)
+    y = get_hex('magma',6)
     x = PaintBox("test",y)
     x.save_location(r".\\test")
     x.swatches(save=True)
