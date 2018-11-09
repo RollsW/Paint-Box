@@ -4,11 +4,14 @@ import matplotlib.pyplot as plt
 import matplotlib.colors as mplc
 from pylab import cm
 
+plt.close("all")
+
+
 def get_hex(name,n=5):
     cmap = cm.get_cmap(name, n)
     output_list =[]
     for i in range(cmap.N):
-        rgb = cmap(i)[:3] # will return rgba, we take only first 3 so we get rgb
+        rgb = cmap(i)[:3]
         output_list.append(mplc.rgb2hex(rgb))
     return(output_list)
 
@@ -40,7 +43,6 @@ def modify(name, colours, modification="b", stop=0):
 
     '''
     key = 0
-    
     hsv_colours = []
     output = []
     hsv_output = ()
@@ -60,27 +62,6 @@ def modify(name, colours, modification="b", stop=0):
         output.append(rgb_output)
     output = mplc.LinearSegmentedColormap.from_list(name,output)
     return output
-
-def swatch(mpl_map,background="black"):
-    N = 15000
-    x = np.random.rand(N)
-    y = np.random.rand(N)
-    side_length = 1.181102
-    fig = plt.figure(figsize=(side_length*1.7778,side_length))
-    ax = fig.add_subplot(1,1,1)
-    fig.patch.set_facecolor(background)
-    ax.patch.set_facecolor(background)
-    ax.spines.clear()
-    ax.set_xticks([])
-    ax.set_yticks([])
-    ax.scatter(y, x, c=y, s=10, cmap=mpl_map)
-    fig.subplots_adjust(top=1,
-                        bottom=0,
-                        left=0,
-                        right=1,
-                        hspace=0,
-                        wspace=0)
-
 
 class PaintBox():
     '''
@@ -181,16 +162,33 @@ class PaintBox():
                 plt.savefig(f"{self.savepath}\\{i.name}.png",
                 dpi=300,
                 transparent=False)
-            plt.close(fig)
+                plt.close(fig)
 
 
 
 if __name__ == "__main__":
+#   good sources of colourschemes include:
 
-#    y = ["#2b3a42","#3f5866","#bdd3de","#f0f0df","#ff8f00"]
+#    Colormind: http://colormind.io/
+#    palette = ["#1F1314","#913D33","#C77B53","#D1BF92","#9F9782"]
+#    palette = ["#2B344B","#69829D","#798EA6","#ADA68A","#BC8064"]
+
+#    Images - use colorthief to get most common colours
+#    from colorthief import ColorThief as ct
+#    color_thief = ct(r'C:\Users\wjrol\Desktop\sunset-3320015_1280.jpg')
+#    palette = color_thief.get_palette(color_count=6, quality=1)
+
+#   Adobe colour CC https://color.adobe.com/explore/
+    palette = ["#112f41","#068587","#4fb99f","#f2b134","#ed553b"]
+#    palette = ["#f3cb60","#f5b74d","#f26d40","#d95242","#a83738"]
+#    palette = ["#142c41","#f2ebc3","#f5a219","#f27612","#b5291d"]
+
+#   direct from matplotlib
+#    palette = get_hex('viridis',5)
 
 
-    y = get_hex('magma',6)
-    x = PaintBox("test",y)
+    x = PaintBox("test",palette)
     x.save_location(r".\\test")
     x.swatches(save=True)
+
+
