@@ -6,7 +6,6 @@ from pylab import cm
 
 plt.close("all")
 
-
 def get_hex(name,n=5):
     cmap = cm.get_cmap(name, n)
     output_list =[]
@@ -143,12 +142,13 @@ class PaintBox():
                 dpi=300,
                 transparent=False)
                 plt.close(fig)
+        print(f"Swatches saved to {self.savepath}")
 
     def export(self, path):
         file_name = f"{path}\\{self.name}.gpl"
         with open(file_name,"w") as palette_file:
             print(f"GIMP Palette\nName: {self.name}\nColumns: 0\n#\n", file=palette_file)
-        print(file_name)
+        print(f"Generating {file_name}")
         l = len(self.colours_list)
         for c_map in self.mapslist:
             x = c_map._resample(l)
@@ -161,7 +161,7 @@ class PaintBox():
                 rgb = mplc.to_rgb(x(n))
                 with open(file_name,"a") as palette_file:
                     print(f"{int(rgb[0]*255)}\t{int(rgb[1]*255)}\t{int(rgb[2]*255)}\t {c_map.name} (colour {n+1})", file=palette_file)
-                    print(f"{int(rgb[0]*255)}\t{int(rgb[1]*255)}\t{int(rgb[2]*255)}\t {c_map.name} (colour {n+1})")
+                    #print(f"{int(rgb[0]*255)}\t{int(rgb[1]*255)}\t{int(rgb[2]*255)}\t {c_map.name} (colour {n+1})")
         
         
 
@@ -189,9 +189,9 @@ if __name__ == "__main__":
 
 
     x = PaintBox("test",palette)
-#    x.palette_path = r"C:\Users\[yourname]\AppData\Roaming\inkscape\palettes"
+    x.palette_path = r"C:\Users\[yourname]\AppData\Roaming\inkscape\palettes"
     x.swatch_location(r".\test")
     x.swatches(save=True)
-#    x.export(x.palette_path)
+    x.export(x.palette_path)
     
 
