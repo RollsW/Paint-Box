@@ -72,30 +72,9 @@ class PaintBox():
         or a mixture (if you're feeling perverse.)
     '''
     def __init__(self, name, colours):
-        # convert everything into a common format.
-        self.dummy_list = mplc.LinearSegmentedColormap.from_list(name="blank_colours",colors=[[1,1,1],[0.5,0.5,0.5],[0.0,0.0,0.0]])
         self.name = name
-        self.colours_list = []
-        self.basemap = self.dummy_list
         self.savepath = ""
-        self.basemap_light = self.dummy_list
-        self.basemap_light2 = self.dummy_list
-        self.basemap_dark = self.dummy_list
-        self.basemap_dark2 = self.dummy_list
-        self.basemap_sat = self.dummy_list
-        self.basemap_sat2 = self.dummy_list
-        self.basemap_dsat = self.dummy_list
-        self.basemap_dsat2 = self.dummy_list
-        self.mapslist = [self.basemap,
-                         self.basemap_light,
-                         self.basemap_light2,
-                         self.basemap_dark,
-                         self.basemap_dark2,
-                         self.basemap_sat,
-                         self.basemap_sat2,
-                         self.basemap_dsat,
-                         self.basemap_dsat2]
-
+        self.colours_list = []
         for c in colours:
             if c[0] is "#" and len(c) is 7:
                 x = mplc.hex2color(c)
@@ -163,6 +142,10 @@ class PaintBox():
                 dpi=300,
                 transparent=False)
                 plt.close(fig)
+#
+#    def export(self):
+#        l = len(self.basemap)
+#        
 
 
 
@@ -170,8 +153,8 @@ if __name__ == "__main__":
 #   good sources of colourschemes include:
 
 #    Colormind: http://colormind.io/
-    palette = ["#1F1314","#913D33","#C77B53","#D1BF92","#9F9782"]
-#    palette = ["#2B344B","#69829D","#798EA6","#ADA68A","#BC8064"]
+#    palette = ["#1F1314","#913D33","#C77B53","#D1BF92","#9F9782"]
+    palette = ["#2B344B","#69829D","#798EA6","#ADA68A","#BC8064"]
 
 #    Images - use colorthief to get most common colours
 #    from colorthief import ColorThief as ct
@@ -190,5 +173,6 @@ if __name__ == "__main__":
     x = PaintBox("test",palette)
     x.save_location(r".\\test")
     x.swatches(save=True)
-
+#    x.export()
+    
 
