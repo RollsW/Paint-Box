@@ -74,6 +74,7 @@ class PaintBox():
     def __init__(self, name, colours):
         self.name = name
         self.savepath = ""
+        self.palette_path = ""
         self.colours_list = []
         for c in colours:
             if c[0] is "#" and len(c) is 7:
@@ -109,7 +110,7 @@ class PaintBox():
                          self.basemap_dsat,
                          self.basemap_dsat2]
 
-    def save_location(self,path):
+    def swatch_location(self,path):
         self.savepath = path
         if not os.path.exists(self.savepath):
             os.makedirs(self.savepath)
@@ -142,10 +143,27 @@ class PaintBox():
                 dpi=300,
                 transparent=False)
                 plt.close(fig)
-#
-#    def export(self):
-#        l = len(self.basemap)
-#        
+
+    def export(self, path):
+        file_name = f"{path}\\{self.name}.gpl"
+        with open(file_name,"w") as palette_file:
+            print(f"GIMP Palette\nName: {self.name}\nColumns: 0\n#\n", file=palette_file)
+        print(file_name)
+        l = len(self.colours_list)
+        for c_map in self.mapslist:
+            x = c_map._resample(l)
+#            print(mplc.to_rgb(x(0)))
+#            print(mplc.to_rgb(x(1)))
+#            print(mplc.to_rgb(x(2)))
+#            print(mplc.to_rgb(x(3)))
+#            print(mplc.to_rgb(x(4)))
+            for n in range(l):
+                rgb = mplc.to_rgb(x(n))
+                with open(file_name,"a") as palette_file:
+                    print(f"{int(rgb[0]*255)}\t{int(rgb[1]*255)}\t{int(rgb[2]*255)}\t {c_map.name} (colour {n+1})", file=palette_file)
+                    print(f"{int(rgb[0]*255)}\t{int(rgb[1]*255)}\t{int(rgb[2]*255)}\t {c_map.name} (colour {n+1})")
+        
+        
 
 
 
@@ -153,8 +171,8 @@ if __name__ == "__main__":
 #   good sources of colourschemes include:
 
 #    Colormind: http://colormind.io/
-#    palette = ["#1F1314","#913D33","#C77B53","#D1BF92","#9F9782"]
-    palette = ["#2B344B","#69829D","#798EA6","#ADA68A","#BC8064"]
+    palette = ["#1F1314","#913D33","#C77B53","#D1BF92","#9F9782"]
+#    palette = ["#2B344B","#69829D","#798EA6","#ADA68A","#BC8064"]
 
 #    Images - use colorthief to get most common colours
 #    from colorthief import ColorThief as ct
@@ -167,12 +185,13 @@ if __name__ == "__main__":
 #   palette = ["#142c41","#f2ebc3","#f5a219","#f27612","#b5291d"]
 
 #   direct from matplotlib
-#    palette = get_hex('viridis',5)
+#    palette = get_hex('plasma',5)
 
 
     x = PaintBox("test",palette)
-    x.save_location(r".\\test")
+#    x.palette_path = r"C:\Users\[yourname]\AppData\Roaming\inkscape\palettes"
+    x.swatch_location(r".\test")
     x.swatches(save=True)
-#    x.export()
+#    x.export(x.palette_path)
     
 
