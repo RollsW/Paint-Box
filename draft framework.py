@@ -151,7 +151,7 @@ class PaintBox():
             ax.spines.clear()
             ax.set_xticks([])
             ax.set_yticks([])
-            ax.scatter(y, x, c=y, s=10, cmap=i)
+            ax.scatter(y, x, c=y, s=10, cmap=i, alpha=0.8)
             fig.subplots_adjust(top=1,
                                 bottom=0,
                                 left=0,
@@ -170,7 +170,7 @@ if __name__ == "__main__":
 #   good sources of colourschemes include:
 
 #    Colormind: http://colormind.io/
-#    palette = ["#1F1314","#913D33","#C77B53","#D1BF92","#9F9782"]
+    palette = ["#1F1314","#913D33","#C77B53","#D1BF92","#9F9782"]
 #    palette = ["#2B344B","#69829D","#798EA6","#ADA68A","#BC8064"]
 
 #    Images - use colorthief to get most common colours
@@ -179,9 +179,9 @@ if __name__ == "__main__":
 #    palette = color_thief.get_palette(color_count=6, quality=1)
 
 #   Adobe colour CC https://color.adobe.com/explore/
-    palette = ["#112f41","#068587","#4fb99f","#f2b134","#ed553b"]
+#    palette = ["#112f41","#068587","#4fb99f","#f2b134","#ed553b"]
 #    palette = ["#f3cb60","#f5b74d","#f26d40","#d95242","#a83738"]
-#    palette = ["#142c41","#f2ebc3","#f5a219","#f27612","#b5291d"]
+#   palette = ["#142c41","#f2ebc3","#f5a219","#f27612","#b5291d"]
 
 #   direct from matplotlib
 #    palette = get_hex('viridis',5)
