@@ -1,6 +1,22 @@
-# Cedar-Light
-# NB this project is not yet functional. At the moment its guts are all over the floor and I'm gradually mashing things together.
+# Paint Box
 
-The objective is to take a number of hex or rgb colors, and convert them into a functional matplotlib colormap, and Inkscape palette, including a range of additions like light and dark shades of the original colors and saturated / desaturated etc.
+Python code for building matplotlib color palettes and exporting them for use in either Inkscape or Gimp.
 
-Managing colormaps and palettes for matplitlib and inkscape in python
+The basic commands are:
+
+	`palette = [ a list of colours] # we can handle hex "#ffffff", rgb as (0.x,0.x,0.x) or rgb as (255,255,255) or as the equivalent lists'
+    `x = PaintBox("name",palette)`
+    `x.palette_path = r".\test" # for inkscape use r"C:\Users\[yourname]\AppData\Roaming\inkscape\palettes"`
+    `x.swatch_location(r".\test") #wherever we want the swatches saved`
+    `x.swatches(save=True) # save swatches of the colour scheme to the swatch_location`
+    `x.export(x.palette_path) #save a GPL palette to the palette_path`
+	
+## Good sources of colour schemes include:
+###Colormind: [text link](http://colormind.io/)
+###Images - use ColorThief to get most common colours [text link](https://github.com/fengsp/color-thief-py)
+`from colorthief import ColorThief as ct
+`color_thief = ct(r'c:\somefile.jpg')
+`palette = color_thief.get_palette(color_count=6, quality=10)`
+###Adobe color CC [text link](https://color.adobe.com/explore)
+###Or direct from matplotlib using get_hex function (from this code)
+`palette = get_hex('plasma',5)`

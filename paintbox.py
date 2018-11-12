@@ -7,6 +7,8 @@ from pylab import cm
 plt.close("all")
 
 def get_hex(name,n=5):
+    '''takes a matplotlib colormap and returns a number (n) of sampled
+    hex colours from the map.'''
     cmap = cm.get_cmap(name, n)
     output_list =[]
     for i in range(cmap.N):
@@ -14,18 +16,27 @@ def get_hex(name,n=5):
         output_list.append(mplc.rgb2hex(rgb))
     return(output_list)
 
-
 def value_calc(stop, value=0.5):
-    ''' stops = 0,1,2,3'''
+    '''returns a value between 0 and 1 based on an input value and a "stop"
+    value (between 0 and 3) which corresponds to 2 equidistant points between
+    value and zero, and 2 equidistant points between 0 and 1
+    for example: input value 0.5
+
+    stop    result
+    0       0.16
+    1       0.33
+    2       0.66
+    3       0.83
+    '''
     possible_stops = [0,1,2,3]
     if not stop in possible_stops:
         return "error"
     if stop == 0:
         x = value/3
-        return value-x
+        return value-2*x
     if stop == 1:
         x = value/3
-        return value-2*x
+        return value-x
     if stop == 2:
         x = (1-value)/3
         return value+x
@@ -36,10 +47,12 @@ def value_calc(stop, value=0.5):
 
 def modify(name, colours, modification="b", stop=0):
     '''
-    modifications = brightness [0 - 3]
-                    saturation [0 - 3]
-    stop = intesntity
-
+    takes an matplotlib colormap and modifies either saturation or brightness
+    returns a matplotlib colormap:
+        name (map name)
+        colours (colormap)
+        modification ("b" for brightness or "s" for saturation)
+        stop (integer between 0 (low/dark) and 3 (high/light))
     '''
     key = 0
     hsv_colours = []
@@ -63,19 +76,22 @@ def modify(name, colours, modification="b", stop=0):
     return output
 
 class PaintBox():
-    '''
-    Accepts multiple colour formats:
-        hex "#xxxxxx"
-        decimal RGB: [0.x,0.x,0.x] or (0.x,0.x,0.x)
-        integer RGB: [255,255,255] or (255,255,255)
-        or a mixture (if you're feeling perverse.)
-    '''
+    ''' manages a number of different matplotlib colormaps'''
     def __init__(self, name, colours):
+        '''
+        Accepts multiple colour formats:
+            hex "#xxxxxx"
+            decimal RGB: [0.x,0.x,0.x] or (0.x,0.x,0.x)
+            integer RGB: [255,255,255] or (255,255,255)
+            or a mixture (if you're feeling perverse.)
+        converts the colours to a matplotlib colormap and then adds colormaps
+        with varying degrees of brightness, and saturation.'''
         self.name = name
         self.savepath = ""
         self.palette_path = ""
         self.colours_list = []
         for c in colours:
+            #convert everything into a common format
             if c[0] is "#" and len(c) is 7:
                 x = mplc.hex2color(c)
                 self.colours_list.append(x)
@@ -89,16 +105,16 @@ class PaintBox():
                 for i in c:
                     c2.append(i)
                 self.colours_list.append(tuple(c2))
-        self.basemap = mplc.LinearSegmentedColormap.from_list(self.name+"_base",self.colours_list)
-        self.basemap_light = modify(self.name+"_light2",self.colours_list, modification="b", stop=3)
-        self.basemap_light2 = modify(self.name+"_light",self.colours_list, modification="b", stop=2)
-        self.basemap_dark = modify(self.name+"_dark2",self.colours_list, modification="b", stop=1)
-        self.basemap_dark2 = modify(self.name+"_dark",self.colours_list, modification="b", stop=0)
-        self.basemap_sat = modify(self.name+"_sat2",self.colours_list, modification="s", stop=3)
-        self.basemap_sat2 = modify(self.name+"_sat",self.colours_list, modification="s", stop=2)
-        self.basemap_dsat = modify(self.name+"_dsat2",self.colours_list, modification="s", stop=1)
-        self.basemap_dsat2 = modify(self.name+"_dsat",self.colours_list, modification="s", stop=0)
-        
+        self.basemap = mplc.LinearSegmentedColormap.from_list(self.name,self.colours_list)
+        self.basemap_light2 = modify(self.name+" light+",self.colours_list, modification="b", stop=3)
+        self.basemap_light = modify(self.name+" light",self.colours_list, modification="b", stop=2)
+        self.basemap_dark = modify(self.name+"dark",self.colours_list, modification="b", stop=1)
+        self.basemap_dark2 = modify(self.name+" dark+",self.colours_list, modification="b", stop=0)
+        self.basemap_sat2 = modify(self.name+" saturated+",self.colours_list, modification="s", stop=3)
+        self.basemap_sat = modify(self.name+" saturated",self.colours_list, modification="s", stop=2)
+        self.basemap_dsat = modify(self.name+" desaturated",self.colours_list, modification="s", stop=1)
+        self.basemap_dsat2 = modify(self.name+" desaturated+",self.colours_list, modification="s", stop=0)
+
         self.mapslist = [self.basemap,
                          self.basemap_light,
                          self.basemap_light2,
@@ -110,11 +126,14 @@ class PaintBox():
                          self.basemap_dsat2]
 
     def swatch_location(self,path):
+        '''sets up where we want the swatches sent'''
         self.savepath = path
         if not os.path.exists(self.savepath):
             os.makedirs(self.savepath)
 
     def swatches(self,background="black", save=False):
+        ''' generates an image for each colormap and either saves them to the
+        swatch location, or displays them as matplotlib figures'''
         N = 15000
         x = np.random.rand(N)
         y = np.random.rand(N)
@@ -145,6 +164,8 @@ class PaintBox():
         print(f"Swatches saved to {self.savepath}")
 
     def export(self, path):
+        '''exports a .gpl file (Gimp palette, compatible with inkscape)
+        to the specified path'''
         file_name = f"{path}\\{self.name}.gpl"
         with open(file_name,"w") as palette_file:
             print(f"GIMP Palette\nName: {self.name}\nColumns: 0\n#\n", file=palette_file)
@@ -152,26 +173,16 @@ class PaintBox():
         l = len(self.colours_list)
         for c_map in self.mapslist:
             x = c_map._resample(l)
-#            print(mplc.to_rgb(x(0)))
-#            print(mplc.to_rgb(x(1)))
-#            print(mplc.to_rgb(x(2)))
-#            print(mplc.to_rgb(x(3)))
-#            print(mplc.to_rgb(x(4)))
             for n in range(l):
                 rgb = mplc.to_rgb(x(n))
                 with open(file_name,"a") as palette_file:
                     print(f"{int(rgb[0]*255)}\t{int(rgb[1]*255)}\t{int(rgb[2]*255)}\t {c_map.name} (colour {n+1})", file=palette_file)
-                    #print(f"{int(rgb[0]*255)}\t{int(rgb[1]*255)}\t{int(rgb[2]*255)}\t {c_map.name} (colour {n+1})")
-        
-        
-
-
 
 if __name__ == "__main__":
 #   good sources of colourschemes include:
 
 #    Colormind: http://colormind.io/
-    palette = ["#1F1314","#913D33","#C77B53","#D1BF92","#9F9782"]
+#    palette = ["#1F1314","#913D33","#C77B53","#D1BF92","#9F9782"]
 #    palette = ["#2B344B","#69829D","#798EA6","#ADA68A","#BC8064"]
 
 #    Images - use colorthief to get most common colours
@@ -185,13 +196,12 @@ if __name__ == "__main__":
 #   palette = ["#142c41","#f2ebc3","#f5a219","#f27612","#b5291d"]
 
 #   direct from matplotlib
-#    palette = get_hex('plasma',5)
-
+    palette = get_hex('plasma',5)
 
     x = PaintBox("test",palette)
-    x.palette_path = r"C:\Users\[yourname]\AppData\Roaming\inkscape\palettes"
+    x.palette_path = r".\test" # for inkscape use r"C:\Users\[yourname]\AppData\Roaming\inkscape\palettes"
     x.swatch_location(r".\test")
     x.swatches(save=True)
     x.export(x.palette_path)
-    
+
 
