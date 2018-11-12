@@ -3,7 +3,7 @@
 Python code for building matplotlib color palettes and exporting them for use in either Inkscape or Gimp.
 
 ## The story so far
-I was in the middle of some code with a lot of matplotlib figures. Changing the figure palette within matplotlib is reasonably straightforward, but then... I was putting them on a poster, and adding them to a presentation - both of these applications needed other graphics fro other sources to make sense, and I suddenly realised that I had not way of making my figures match the rest of the colour scheme. 
+I was in the middle of some code with a lot of matplotlib figures. Changing the figure palette within matplotlib is reasonably straightforward, but then... I was putting them on a poster, and adding them to a presentation - both of these applications needed other graphics from other sources to make sense, and I suddenly realised that I had no way of making my figures match the rest of the colour scheme. 
 
 This simple bit of code takes an input of an arbitrary number of colours, either in rgb or hex format, and uses them to generate 1) a range of matplotlib colormaps and 2) a .gpl file (gimp palette) containing the original colours, as well as a range of saturation and brightness options. 
 
