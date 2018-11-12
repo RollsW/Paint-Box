@@ -106,14 +106,14 @@ class PaintBox():
                     c2.append(i)
                 self.colours_list.append(tuple(c2))
         self.basemap = mplc.LinearSegmentedColormap.from_list(self.name,self.colours_list)
-        self.basemap_light2 = modify(self.name+" light+",self.colours_list, modification="b", stop=3)
-        self.basemap_light = modify(self.name+" light",self.colours_list, modification="b", stop=2)
-        self.basemap_dark = modify(self.name+" dark",self.colours_list, modification="b", stop=1)
-        self.basemap_dark2 = modify(self.name+" dark+",self.colours_list, modification="b", stop=0)
-        self.basemap_sat2 = modify(self.name+" saturated+",self.colours_list, modification="s", stop=3)
-        self.basemap_sat = modify(self.name+" saturated",self.colours_list, modification="s", stop=2)
-        self.basemap_dsat = modify(self.name+" desaturated",self.colours_list, modification="s", stop=1)
-        self.basemap_dsat2 = modify(self.name+" desaturated+",self.colours_list, modification="s", stop=0)
+        self.basemap_light2 = modify(self.name+"_light_plus",self.colours_list, modification="b", stop=3)
+        self.basemap_light = modify(self.name+"_light",self.colours_list, modification="b", stop=2)
+        self.basemap_dark = modify(self.name+"_dark",self.colours_list, modification="b", stop=1)
+        self.basemap_dark2 = modify(self.name+"_dark_plus",self.colours_list, modification="b", stop=0)
+        self.basemap_sat2 = modify(self.name+"_saturated_plus",self.colours_list, modification="s", stop=3)
+        self.basemap_sat = modify(self.name+"_saturated",self.colours_list, modification="s", stop=2)
+        self.basemap_dsat = modify(self.name+"_desaturated",self.colours_list, modification="s", stop=1)
+        self.basemap_dsat2 = modify(self.name+"_desaturated_plus",self.colours_list, modification="s", stop=0)
 
         self.mapslist = [self.basemap,
                          self.basemap_light,
@@ -158,7 +158,7 @@ class PaintBox():
                                 wspace=0)
             if save is True:
                 plt.savefig(f"{self.savepath}\\{i.name}.png",
-                dpi=50,
+                dpi=100,
                 transparent=False)
                 plt.close(fig)
         print(f"Swatches saved to {self.savepath}")
@@ -183,7 +183,7 @@ if __name__ == "__main__":
 
 #    Colormind: http://colormind.io/
 #    palette = ["#1F1314","#913D33","#C77B53","#D1BF92","#9F9782"]
-#    palette = ["#2B344B","#69829D","#798EA6","#ADA68A","#BC8064"]
+    palette = ["#1E4363","#FCF2CB","#FFB00D","#FF8926","#BC2D19"]
 
 #    Images - use colorthief to get most common colours
 #    from colorthief import ColorThief as ct
@@ -196,11 +196,11 @@ if __name__ == "__main__":
 #   palette = ["#142c41","#f2ebc3","#f5a219","#f27612","#b5291d"]
 
 #   direct from matplotlib
-    palette = get_hex('plasma',5)
+#    palette = get_hex('plasma',5)
 
     x = PaintBox("test",palette)
-    x.palette_path = r".\test" # for inkscape use r"C:\Users\[yourname]\AppData\Roaming\inkscape\palettes"
-    x.swatch_location(r".\test")
+    x.palette_path = r".\demo" # for inkscape use r"C:\Users\[yourname]\AppData\Roaming\inkscape\palettes"
+    x.swatch_location(r".\demo")
     x.swatches(save=True)
     x.export(x.palette_path)
 
