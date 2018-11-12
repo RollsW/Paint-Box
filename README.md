@@ -13,13 +13,13 @@ Once you have set up the object, you can either use `PaintBox.basemap` as a stan
 ## Basic commands
 
 `palette = [ a list of colours]`
-we can handle hex "#ffffff", rgb as (0.x,0.x,0.x) or rgb as (255,255,255) or as the equivalent lists: i.e. [0.x,0.x,0.x] or [255,255,255]
+It's easiest to set this up first. We can handle hex "#ffffff", rgb as (0.x,0.x,0.x) or rgb as (255,255,255) or as the equivalent lists: i.e. [0.x,0.x,0.x] or [255,255,255]
 
 `x = PaintBox("name",palette)`
 generates the paintbox object
 
 `x.palette_path = r".\test"`
-for inkscape use r"C:\Users\your_name\AppData\Roaming\inkscape\palettes"
+for inkscape, use r"C:\Users\your_name\AppData\Roaming\inkscape\palettes"
 
 `x.swatch_location(r".\test")`
 wherever we want the swatches saved
