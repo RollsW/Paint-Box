@@ -1,3 +1,4 @@
+'''Paintbox, a miniature python library for handling palettes'''
 import os
 import numpy as np
 import matplotlib.pyplot as plt
@@ -6,15 +7,15 @@ from pylab import cm
 
 plt.close("all")
 
-def get_hex(name,n=5):
-    '''takes a matplotlib colormap and returns a number (n) of sampled
+def get_hex(name, number=5):
+    '''takes a matplotlib colormap and returns a number (number) of sampled
     hex colours from the map.'''
-    cmap = cm.get_cmap(name, n)
-    output_list =[]
+    cmap = cm.get_cmap(name, number)
+    output_list = []
     for i in range(cmap.N):
         rgb = cmap(i)[:3]
         output_list.append(mplc.rgb2hex(rgb))
-    return(output_list)
+    return output_list
 
 def value_calc(stop, value=0.5):
     '''returns a value between 0 and 1 based on an input value and a "stop"
@@ -28,7 +29,7 @@ def value_calc(stop, value=0.5):
     2       0.66
     3       0.83
     '''
-    possible_stops = [0,1,2,3]
+    possible_stops = [0, 1, 2, 3]
     if not stop in possible_stops:
         return "error"
     if stop == 0:
@@ -67,12 +68,12 @@ def modify(name, colours, modification="b", stop=0):
     if modification is "s":
         key = 1
     for hsv_col in hsv_colours:
-        hsv_output = [hsv_col[0],hsv_col[1],hsv_col[2]]
-        hsv_output[key] = value_calc(stop,hsv_output[key])
+        hsv_output = [hsv_col[0], hsv_col[1], hsv_col[2]]
+        hsv_output[key] = value_calc(stop, hsv_output[key])
         hsv_output = tuple(hsv_output)
         rgb_output = mplc.hsv_to_rgb(hsv_output)
         output.append(rgb_output)
-    output = mplc.LinearSegmentedColormap.from_list(name,output)
+    output = mplc.LinearSegmentedColormap.from_list(name, output)
     return output
 
 class PaintBox():
@@ -90,30 +91,49 @@ class PaintBox():
         self.savepath = ""
         self.palette_path = ""
         self.colours_list = []
-        for c in colours:
+        for col in colours:
             #convert everything into a common format
-            if c[0] is "#" and len(c) is 7:
-                x = mplc.hex2color(c)
+            if col[0] is "#" and len(col) is 7:
+                x = mplc.hex2color(col)
                 self.colours_list.append(x)
-            elif (isinstance(c, (tuple, list))) and (len(c) is 3) and (isinstance(c[0], int)):
+            elif ((isinstance(col, (tuple, list)))
+                  and (len(col) is 3)
+                  and (isinstance(col[0], int))):
+                colours_list_2 = []
+                for i in col:
+                    colours_list_2.append(i/255)
+                self.colours_list.append(tuple(colours_list_2))
+            elif ((isinstance(col, (tuple, list)))
+                  and (len(col) is 3)
+                  and (isinstance(col[0], float))):
                 c2 = []
-                for i in c:
-                    c2.append(i/255)
-                self.colours_list.append(tuple(c2))
-            elif (isinstance(c, (tuple, list))) and (len(c) is 3) and (isinstance(c[0], float)):
-                c2 = []
-                for i in c:
+                for i in col:
                     c2.append(i)
-                self.colours_list.append(tuple(c2))
-        self.basemap = mplc.LinearSegmentedColormap.from_list(self.name,self.colours_list)
-        self.basemap_light2 = modify(self.name+"_light_plus",self.colours_list, modification="b", stop=3)
-        self.basemap_light = modify(self.name+"_light",self.colours_list, modification="b", stop=2)
-        self.basemap_dark = modify(self.name+"_dark",self.colours_list, modification="b", stop=1)
-        self.basemap_dark2 = modify(self.name+"_dark_plus",self.colours_list, modification="b", stop=0)
-        self.basemap_sat2 = modify(self.name+"_saturated_plus",self.colours_list, modification="s", stop=3)
-        self.basemap_sat = modify(self.name+"_saturated",self.colours_list, modification="s", stop=2)
-        self.basemap_dsat = modify(self.name+"_desaturated",self.colours_list, modification="s", stop=1)
-        self.basemap_dsat2 = modify(self.name+"_desaturated_plus",self.colours_list, modification="s", stop=0)
+                self.colours_list.append(tuple(colours_list_2))
+        self.basemap = mplc.LinearSegmentedColormap.from_list(self.name, self.colours_list)
+        self.basemap_light2 = modify(self.name+"_light_plus",
+                                     self.colours_list, modification="b", stop=3)
+
+        self.basemap_light = modify(self.name+"_light",
+                                    self.colours_list, modification="b", stop=2)
+
+        self.basemap_dark = modify(self.name+"_dark",
+                                   self.colours_list, modification="b", stop=1)
+
+        self.basemap_dark2 = modify(self.name+"_dark_plus",
+                                    self.colours_list, modification="b", stop=0)
+
+        self.basemap_sat2 = modify(self.name+"_saturated_plus",
+                                   self.colours_list, modification="s", stop=3)
+
+        self.basemap_sat = modify(self.name+"_saturated",
+                                  self.colours_list, modification="s", stop=2)
+
+        self.basemap_dsat = modify(self.name+"_desaturated",
+                                   self.colours_list, modification="s", stop=1)
+
+        self.basemap_dsat2 = modify(self.name+"_desaturated_plus",
+                                    self.colours_list, modification="s", stop=0)
 
         self.mapslist = [self.basemap,
                          self.basemap_light,
@@ -125,25 +145,23 @@ class PaintBox():
                          self.basemap_dsat,
                          self.basemap_dsat2]
 
-    def swatch_location(self,path):
+    def swatch_location(self, path):
         '''sets up where we want the swatches sent'''
         self.savepath = path
         if not os.path.exists(self.savepath):
             os.makedirs(self.savepath)
 
-    def swatches(self,background="black", save=False):
+    def swatches(self, background="black", save=False):
         ''' generates an image for each colormap and either saves them to the
         swatch location, or displays them as matplotlib figures'''
-        N = 15000
-        x = np.random.rand(N)
-        y = np.random.rand(N)
-        side_lengthx = 1
-        side_lengthy = 6
+        points = 15000
+        x_length = 1
+        y_length = 6
         for i in self.mapslist:
-            x = np.random.rand(N)
-            y = np.random.rand(N)
-            fig = plt.figure(figsize=(side_lengthy,side_lengthx))
-            ax = fig.add_subplot(1,1,1)
+            x = np.random.rand(points)
+            y = np.random.rand(points)
+            fig = plt.figure(figsize=(y_length, x_length))
+            ax = fig.add_subplot(1, 1, 1)
             fig.patch.set_facecolor(background)
             ax.patch.set_facecolor(background)
             ax.spines.clear()
@@ -158,8 +176,8 @@ class PaintBox():
                                 wspace=0)
             if save is True:
                 plt.savefig(f"{self.savepath}\\{i.name}.png",
-                dpi=100,
-                transparent=False)
+                            dpi=100,
+                            transparent=False)
                 plt.close(fig)
         print(f"Swatches saved to {self.savepath}")
 
@@ -167,23 +185,30 @@ class PaintBox():
         '''exports a .gpl file (Gimp palette, compatible with inkscape)
         to the specified path'''
         file_name = f"{path}\\{self.name}.gpl"
-        with open(file_name,"w") as palette_file:
+        with open(file_name, "w") as palette_file:
             print(f"GIMP Palette\nName: {self.name}\nColumns: 0\n#\n", file=palette_file)
         print(f"Generating {file_name}")
-        l = len(self.colours_list)
+        colours_length = len(self.colours_list)
         for c_map in self.mapslist:
-            x = c_map._resample(l)
-            for n in range(l):
-                rgb = mplc.to_rgb(x(n))
-                with open(file_name,"a") as palette_file:
-                    print(f"{int(rgb[0]*255)}\t{int(rgb[1]*255)}\t{int(rgb[2]*255)}\t {c_map.name} (colour {n+1})", file=palette_file)
+            x = c_map._resample(colours_length)
+            for num in range(colours_length):
+                rgb = mplc.to_rgb(x(num))
+                with open(file_name, "a") as palette_file:
+                    print(f"{int(rgb[0]*255)}", end="\t",
+                          file=palette_file)
+                    print(f"{int(rgb[1]*255)}", end="\t",
+                          file=palette_file)
+                    print(f"{int(rgb[2]*255)}", end="\t",
+                          file=palette_file)
+                    print(f"{c_map.name} (colour {num+1})",
+                          file=palette_file)
 
 if __name__ == "__main__":
 #   good sources of colourschemes include:
 
 #    Colormind: http://colormind.io/
-#    palette = ["#1F1314","#913D33","#C77B53","#D1BF92","#9F9782"]
-    palette = ["#1E4363","#FCF2CB","#FFB00D","#FF8926","#BC2D19"]
+#    palette = ["#1F1314", "#913D33", "#C77B53", "#D1BF92", "#9F9782"]
+    palette = ["#1E4363", "#FCF2CB", "#FFB00D", "#FF8926", "#BC2D19"]
 
 #    Images - use colorthief to get most common colours
 #    from colorthief import ColorThief as ct
@@ -191,17 +216,16 @@ if __name__ == "__main__":
 #    palette = color_thief.get_palette(color_count=6, quality=1)
 
 #   Adobe colour CC https://color.adobe.com/explore/
-#    palette = ["#112f41","#068587","#4fb99f","#f2b134","#ed553b"]
-#    palette = ["#f3cb60","#f5b74d","#f26d40","#d95242","#a83738"]
-#   palette = ["#142c41","#f2ebc3","#f5a219","#f27612","#b5291d"]
+#    palette = ["#112f41", "#068587", "#4fb99f", "#f2b134", "#ed553b"]
+#    palette = ["#f3cb60", "#f5b74d", "#f26d40", "#d95242", "#a83738"]
+#   palette = ["#142c41", "#f2ebc3", "#f5a219", "#f27612", "#b5291d"]
 
 #   direct from matplotlib
 #    palette = get_hex('plasma',5)
 
-    x = PaintBox("test",palette)
-    x.palette_path = r".\demo" # for inkscape use r"C:\Users\[yourname]\AppData\Roaming\inkscape\palettes"
+    x = PaintBox("test", palette)
+    x.palette_path = r".\demo"
+    # for inkscape use r"C:\Users\[yourname]\AppData\Roaming\inkscape\palettes"
     x.swatch_location(r".\demo")
     x.swatches(save=True)
     x.export(x.palette_path)
-
-
