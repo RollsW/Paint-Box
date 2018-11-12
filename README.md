@@ -2,16 +2,24 @@
 
 Python code for building matplotlib color palettes and exporting them for use in either Inkscape or Gimp.
 
-The basic commands are:
+## The story so far
+I was in the middle of some code with a lot of matplotlib figures. Changing the figure palette within matplotlib is reasonably straightforward, but then... I was putting them on a poster, and adding them to a presentation - both of these applications needed other graphics fro other sources to make sense, and I suddenly realised that I had not way of making my figures match the rest of the colour scheme. 
+
+This simple bit of code takes an input of an arbitrary number of colours, either in rgb or hex format, and uses them to generate 1) a range of matplotlib colormaps and 2) a .gpl file (gimp palette) containing the original colours, as well as a range of saturation and brightness options. 
+
+## Uses
+Once you have set up the object, you can either use `PaintBox.basemap` as a standard matplotlib colormap, or export the whole thing as either an array of swatches (small picture files) or as a palette to use in your favorite open-source graphics editor.
+
+## Basic commands
 
 `palette = [ a list of colours]`
-we can handle hex "#ffffff", rgb as (0.x,0.x,0.x) or rgb as (255,255,255) or as the equivalent lists
+It's easiest to set this up first. We can handle hex "#ffffff", rgb as (0.x,0.x,0.x) or rgb as (255,255,255) or as the equivalent lists: i.e. [0.x,0.x,0.x] or [255,255,255]
 
 `x = PaintBox("name",palette)`
 generates the paintbox object
 
 `x.palette_path = r".\test"`
-for inkscape use r"C:\Users\[yourname]\AppData\Roaming\inkscape\palettes"
+for inkscape, use r"C:\Users\your_name\AppData\Roaming\inkscape\palettes"
 
 `x.swatch_location(r".\test")`
 wherever we want the swatches saved
@@ -23,15 +31,51 @@ save swatches of the colour scheme to the swatch_location
 save a GPL palette to the palette_path
 	
 ## Good sources of colour schemes include:
-###Colormind: [http://colormind.io/]
++ Colormind: http://colormind.io/
 
-###Images - use ColorThief to get most common colours [https://github.com/fengsp/color-thief-py]
++ Images - use ColorThief to get most common colours https://github.com/fengsp/color-thief-py
 
-```from colorthief import ColorThief as ct
-color_thief = ct(r'c:\somefile.jpg')
-palette = color_thief.get_palette(color_count=6, quality=10)```
+   ```
+   from colorthief import ColorThief as ct
+   color_thief = ct(r'c:\somefile.jpg')
+   palette = color_thief.get_palette(color_count=6, quality=10)
+   ```
++ Adobe color CC https://color.adobe.com/explore
 
-###Adobe color CC [https://color.adobe.com/explore]
++ Or direct from matplotlib using get_hex function (from this code)
 
-###Or direct from matplotlib using get_hex function (from this code)
-`palette = get_hex('plasma',5)`
+   `palette = get_hex('plasma',5)`
+
+## Swatch examples
++ Base Map 
+	![Base Map (based on matplotlib plasma)](https://github.com/RollsW/Paint-Box/blob/master/test/test.png "Base Map (based on matplotlib plasma)")
+
++ Lighter 
+	![Base Map (based on matplotlib plasma)](https://github.com/RollsW/Paint-Box/blob/master/test/test%20light.png "Base Map (based on matplotlib plasma)")
+
++ Much lighter 
+	![Base Map (based on matplotlib plasma)](https://github.com/RollsW/Paint-Box/blob/master/test/test%20light%2B.png "Base Map (based on matplotlib plasma)")
+
++ Darker 
+	![Base Map (based on matplotlib plasma)](https://github.com/RollsW/Paint-Box/blob/master/test/test%20dark.png "Base Map (based on matplotlib plasma)")
+
++ Much darker 
+	![Base Map (based on matplotlib plasma)](https://github.com/RollsW/Paint-Box/blob/master/test/test%20dark%2B.png "Base Map (based on matplotlib plasma)")
+
++ Desaturated 
+	![Base Map (based on matplotlib plasma)](https://github.com/RollsW/Paint-Box/blob/master/test/test%20desaturated.png "Base Map (based on matplotlib plasma)")
+
++ Very Desaturated 
+	![Base Map (based on matplotlib plasma)](https://github.com/RollsW/Paint-Box/blob/master/test/test%20desaturated%2B.png "Base Map (based on matplotlib plasma)")
+
++ Saturated 
+	![Base Map (based on matplotlib plasma)](https://github.com/RollsW/Paint-Box/blob/master/test/test%20saturated.png "Base Map (based on matplotlib plasma)")
+
++ Very Saturated 
+	![Base Map (based on matplotlib plasma)](https://github.com/RollsW/Paint-Box/blob/master/test/test%20saturated%2B.png "Base Map (based on matplotlib plasma)")
+
+
+
+
+
+
