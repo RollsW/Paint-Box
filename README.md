@@ -4,12 +4,12 @@ Python code for building matplotlib color palettes and exporting them for use in
 
 The basic commands are:
 
-	`palette = [ a list of colours] # we can handle hex "#ffffff", rgb as (0.x,0.x,0.x) or rgb as (255,255,255) or as the equivalent lists'
-    `x = PaintBox("name",palette)`
-    `x.palette_path = r".\test" # for inkscape use r"C:\Users\[yourname]\AppData\Roaming\inkscape\palettes"`
-    `x.swatch_location(r".\test") #wherever we want the swatches saved`
-    `x.swatches(save=True) # save swatches of the colour scheme to the swatch_location`
-    `x.export(x.palette_path) #save a GPL palette to the palette_path`
+`palette = [ a list of colours]` we can handle hex "#ffffff", rgb as (0.x,0.x,0.x) or rgb as (255,255,255) or as the equivalent lists
+`x = PaintBox("name",palette)` generates the paintbox object
+`x.palette_path = r".\test"` for inkscape use r"C:\Users\[yourname]\AppData\Roaming\inkscape\palettes"
+`x.swatch_location(r".\test")` wherever we want the swatches saved
+`x.swatches(save=True)` save swatches of the colour scheme to the swatch_location
+`x.export(x.palette_path)` #save a GPL palette to the palette_path
 	
 ## Good sources of colour schemes include:
 ###Colormind: [text link](http://colormind.io/)
