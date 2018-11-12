@@ -137,12 +137,12 @@ class PaintBox():
         N = 15000
         x = np.random.rand(N)
         y = np.random.rand(N)
-        side_length = .5
-
+        side_lengthx = 1
+        side_lengthy = 6
         for i in self.mapslist:
             x = np.random.rand(N)
             y = np.random.rand(N)
-            fig = plt.figure(figsize=(side_length*1.7778,side_length))
+            fig = plt.figure(figsize=(side_lengthy,side_lengthx))
             ax = fig.add_subplot(1,1,1)
             fig.patch.set_facecolor(background)
             ax.patch.set_facecolor(background)
@@ -158,7 +158,7 @@ class PaintBox():
                                 wspace=0)
             if save is True:
                 plt.savefig(f"{self.savepath}\\{i.name}.png",
-                dpi=20,
+                dpi=50,
                 transparent=False)
                 plt.close(fig)
         print(f"Swatches saved to {self.savepath}")
