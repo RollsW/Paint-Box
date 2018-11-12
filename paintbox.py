@@ -158,7 +158,7 @@ class PaintBox():
                                 wspace=0)
             if save is True:
                 plt.savefig(f"{self.savepath}\\{i.name}.png",
-                dpi=300,
+                dpi=50,
                 transparent=False)
                 plt.close(fig)
         print(f"Swatches saved to {self.savepath}")
