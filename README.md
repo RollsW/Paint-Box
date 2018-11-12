@@ -49,39 +49,39 @@ save a GPL palette to the palette_path
 ## Swatch examples
 + Base Map 
 
-	![Base Map (based on matplotlib plasma)](https://github.com/RollsW/Paint-Box/blob/master/test/test.png "Base Map (based on matplotlib plasma)")
+	![Base Map](https://github.com/RollsW/Paint-Box/blob/master/demo/test.png "Base Map")
 
 + Lighter 
 
-	![Base Map (based on matplotlib plasma)](https://github.com/RollsW/Paint-Box/blob/master/test/test%20light.png "Base Map (based on matplotlib plasma)")
+	![Lighter](https://github.com/RollsW/Paint-Box/blob/master/demo/test_light.png "Lighter")
 
-+ Much lighter 
++ Much Lighter 
 
-	![Base Map (based on matplotlib plasma)](https://github.com/RollsW/Paint-Box/blob/master/test/test%20light%2B.png "Base Map (based on matplotlib plasma)")
-
+	![Much lighter](https://github.com/RollsW/Paint-Box/blob/master/demo/test_light_plus.png "Much Lighter")
+	
 + Darker 
 
-	![Base Map (based on matplotlib plasma)](https://github.com/RollsW/Paint-Box/blob/master/test/test%20dark.png "Base Map (based on matplotlib plasma)")
+	![Darker ](https://github.com/RollsW/Paint-Box/blob/master/demo/test_dark.png "Darker")
 
-+ Much darker 
++ Much Darker 
 
-	![Base Map (based on matplotlib plasma)](https://github.com/RollsW/Paint-Box/blob/master/test/test%20dark%2B.png "Base Map (based on matplotlib plasma)")
+	![Much darker](https://github.com/RollsW/Paint-Box/blob/master/demo/test_dark_plus.png "Much Darker")
 
 + Desaturated 
 
-	![Base Map (based on matplotlib plasma)](https://github.com/RollsW/Paint-Box/blob/master/test/test%20desaturated.png "Base Map (based on matplotlib plasma)")
-
+	![Desaturated](https://github.com/RollsW/Paint-Box/blob/master/demo/test_desaturated.png "Desaturated")
+	
 + Very Desaturated 
 
-	![Base Map (based on matplotlib plasma)](https://github.com/RollsW/Paint-Box/blob/master/test/test%20desaturated%2B.png "Base Map (based on matplotlib plasma)")
-
+	![Very Desaturated](https://github.com/RollsW/Paint-Box/blob/master/demo/test_desaturated_plus.png "Very Desaturated")
+	
 + Saturated 
 
-	![Base Map (based on matplotlib plasma)](https://github.com/RollsW/Paint-Box/blob/master/test/test%20saturated.png "Base Map (based on matplotlib plasma)")
+	![Saturated](https://github.com/RollsW/Paint-Box/blob/master/demo/test_saturated.png "Saturated")	
 
 + Very Saturated 
 
-	![Base Map (based on matplotlib plasma)](https://github.com/RollsW/Paint-Box/blob/master/test/test%20saturated%2B.png "Base Map (based on matplotlib plasma)")
+	![Very Saturated](https://github.com/RollsW/Paint-Box/blob/master/demo/test_saturated_plus.png "Very Saturated")	
 
 
 
