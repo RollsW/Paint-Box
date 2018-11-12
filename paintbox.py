@@ -47,7 +47,7 @@ def value_calc(stop, value=0.5):
 
 def modify(name, colours, modification="b", stop=0):
     '''
-    takes an matplotlib colormap and modifies either saturation or brightness
+    takes alist of colours and modifies either saturation or brightness
     returns a matplotlib colormap:
         name (map name)
         colours (colormap)
@@ -187,7 +187,7 @@ if __name__ == "__main__":
 
 #    Images - use colorthief to get most common colours
 #    from colorthief import ColorThief as ct
-#    color_thief = ct(r'C:\Users\wjrol\Desktop\sunset-3320015_1280.jpg')
+#    color_thief = ct(r'C:\Users\yourname\Desktop\sunset-3320015_1280.jpg')
 #    palette = color_thief.get_palette(color_count=6, quality=1)
 
 #   Adobe colour CC https://color.adobe.com/explore/
