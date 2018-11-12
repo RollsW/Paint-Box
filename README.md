@@ -45,3 +45,37 @@ save a GPL palette to the palette_path
 + Or direct from matplotlib using get_hex function (from this code)
 
    `palette = get_hex('plasma',5)`
+
+## Swatch examples
++ Base Map 
+	![Base Map (based on matplotlib plasma)](https://github.com/RollsW/Paint-Box/blob/master/test/test.png "Base Map (based on matplotlib plasma)")
+
++ Lighter 
+	![Base Map (based on matplotlib plasma)](https://github.com/RollsW/Paint-Box/blob/master/test/test%20light.png "Base Map (based on matplotlib plasma)")
+
++ Much lighter 
+	![Base Map (based on matplotlib plasma)](https://github.com/RollsW/Paint-Box/blob/master/test/test%20light%2B.png "Base Map (based on matplotlib plasma)")
+
++ Darker 
+	![Base Map (based on matplotlib plasma)](https://github.com/RollsW/Paint-Box/blob/master/test/test%20dark.png "Base Map (based on matplotlib plasma)")
+
++ Much darker 
+	![Base Map (based on matplotlib plasma)](https://github.com/RollsW/Paint-Box/blob/master/test/test%20dark%2B.png "Base Map (based on matplotlib plasma)")
+
++ Desaturated 
+	![Base Map (based on matplotlib plasma)](https://github.com/RollsW/Paint-Box/blob/master/test/test%20desaturated.png "Base Map (based on matplotlib plasma)")
+
++ Very Desaturated 
+	![Base Map (based on matplotlib plasma)](https://github.com/RollsW/Paint-Box/blob/master/test/test%20desaturated%2B.png "Base Map (based on matplotlib plasma)")
+
++ Saturated 
+	![Base Map (based on matplotlib plasma)](https://github.com/RollsW/Paint-Box/blob/master/test/test%20saturated.png "Base Map (based on matplotlib plasma)")
+
++ Very Saturated 
+	![Base Map (based on matplotlib plasma)](https://github.com/RollsW/Paint-Box/blob/master/test/test%20saturated%2B.png "Base Map (based on matplotlib plasma)")
+
+
+
+
+
+
