@@ -108,7 +108,7 @@ class PaintBox():
         self.basemap = mplc.LinearSegmentedColormap.from_list(self.name,self.colours_list)
         self.basemap_light2 = modify(self.name+" light+",self.colours_list, modification="b", stop=3)
         self.basemap_light = modify(self.name+" light",self.colours_list, modification="b", stop=2)
-        self.basemap_dark = modify(self.name+"dark",self.colours_list, modification="b", stop=1)
+        self.basemap_dark = modify(self.name+" dark",self.colours_list, modification="b", stop=1)
         self.basemap_dark2 = modify(self.name+" dark+",self.colours_list, modification="b", stop=0)
         self.basemap_sat2 = modify(self.name+" saturated+",self.colours_list, modification="s", stop=3)
         self.basemap_sat = modify(self.name+" saturated",self.colours_list, modification="s", stop=2)
