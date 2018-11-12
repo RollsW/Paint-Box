@@ -23,11 +23,15 @@ save swatches of the colour scheme to the swatch_location
 save a GPL palette to the palette_path
 	
 ## Good sources of colour schemes include:
-###Colormind: [text link](http://colormind.io/)
-###Images - use ColorThief to get most common colours [text link](https://github.com/fengsp/color-thief-py)
-`from colorthief import ColorThief as ct
-`color_thief = ct(r'c:\somefile.jpg')
-`palette = color_thief.get_palette(color_count=6, quality=10)`
-###Adobe color CC [text link](https://color.adobe.com/explore)
+###Colormind: [http://colormind.io/]
+
+###Images - use ColorThief to get most common colours [https://github.com/fengsp/color-thief-py]
+
+```from colorthief import ColorThief as ct
+color_thief = ct(r'c:\somefile.jpg')
+palette = color_thief.get_palette(color_count=6, quality=10)```
+
+###Adobe color CC [https://color.adobe.com/explore]
+
 ###Or direct from matplotlib using get_hex function (from this code)
 `palette = get_hex('plasma',5)`
