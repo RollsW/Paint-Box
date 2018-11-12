@@ -11,7 +11,7 @@ we can handle hex "#ffffff", rgb as (0.x,0.x,0.x) or rgb as (255,255,255) or as 
 generates the paintbox object
 
 `x.palette_path = r".\test"`
-for inkscape use r"C:\Users\[yourname]\AppData\Roaming\inkscape\palettes"
+for inkscape use r"C:\Users\your_name\AppData\Roaming\inkscape\palettes"
 
 `x.swatch_location(r".\test")`
 wherever we want the swatches saved
@@ -27,7 +27,8 @@ save a GPL palette to the palette_path
 
 + Images - use ColorThief to get most common colours https://github.com/fengsp/color-thief-py
 
-   ```from colorthief import ColorThief as ct
+   ```
+   from colorthief import ColorThief as ct
    color_thief = ct(r'c:\somefile.jpg')
    palette = color_thief.get_palette(color_count=6, quality=10)
    ```
