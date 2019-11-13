@@ -174,24 +174,24 @@ class PaintBox:
     def swatches(self, background="black", save=False):
         """ generates an image for each colormap and either saves them to the
         swatch location, or displays them as matplotlib figures"""
-        points = 15000
-        x_length = 1
-        y_length = 6
+        points = 20000
+        y_length = 3
+        x_length = 6
         for i in self.mapslist:
             x = np.random.rand(points)
             y = np.random.rand(points)
-            fig = plt.figure(figsize=(y_length, x_length))
+            fig = plt.figure(figsize=(x_length, y_length))
             ax = fig.add_subplot(1, 1, 1)
             fig.patch.set_facecolor(background)
             ax.patch.set_facecolor(background)
             ax.spines.clear()
             ax.set_xticks([])
             ax.set_yticks([])
-            ax.scatter(y, x, c=y, s=10, cmap=i, alpha=0.8)
+            ax.scatter(y, x, c=y, s=30, cmap=i, alpha=0.8)
             fig.subplots_adjust(top=1, bottom=0, left=0, right=1, hspace=0, wspace=0)
             if save is True:
                 plt.savefig(
-                    f"{self.savepath}\\{i.name}.png", dpi=100, transparent=False
+                    f"{self.savepath}\\{i.name}.png", dpi=200, transparent=False
                 )
                 plt.close(fig)
         print(f"Swatches saved to {self.savepath}")
