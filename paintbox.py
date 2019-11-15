@@ -175,7 +175,7 @@ class PaintBox:
         """ generates an image for each colormap and either saves them to the
         swatch location, or displays them as matplotlib figures"""
         points = 20000
-        y_length = 3
+        y_length = 1
         x_length = 6
         for i in self.mapslist:
             x = np.random.rand(points)
