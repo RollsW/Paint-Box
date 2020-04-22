@@ -2,6 +2,7 @@
 [![GitHub release (latest by date including pre-releases)](https://img.shields.io/github.com/RollsW/Paint-Box/releases)](https://github.com/RollsW/Paint-Box/releases/tag/v1.0)
 [![GitHub](https://github.com/RollsW/Paint-Box/blob/master/docs/MIT.svg)](https://github.com/RollsW/Paint-Box/blob/master/docs/LICENSE)
 [![Code style: black](https://github.com/RollsW/Paint-Box/blob/master/docs/black.svg)](https://github.com/psf/black)
+
 Python code for building matplotlib color palettes and exporting them for use in either Inkscape or Gimp.
 
 ## The story so far
